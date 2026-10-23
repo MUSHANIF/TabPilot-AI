@@ -1,0 +1,64 @@
+{
+  "manifest_version": 3,
+  "name": "TabPilot AI by musolutionlab - Smart News Reader & Chat Copilot",
+  "short_name": "TabPilot",
+  "author": "musolutionlab",
+  "version": "1.0.0",
+  "description": "Ultra-lightweight in-browser AI by musolutionlab: Pembersih iklan berita, rangkuman & Q&A artikel, serta asisten cerdas WhatsApp/Telegram dengan rekomendasi 3 gaya balasan.",
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "TabPilot AI Settings",
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.detik.com/*",
+        "*://*.kompas.com/*",
+        "*://*.kumparan.com/*",
+        "*://*.cnnindonesia.com/*",
+        "*://*.tempo.co/*",
+        "*://*.tribunnews.com/*",
+        "*://*.liputan6.com/*",
+        "*://*.suara.com/*",
+        "*://*.merdeka.com/*",
+        "*://*.idntimes.com/*",
+        "*://*.cnbcindonesia.com/*",
+        "*://*.medium.com/*",
+        "https://*/*"
+      ],
+      "js": ["content_news.js"],
+      "css": ["news_reader.css"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://web.whatsapp.com/*",
+        "https://web.telegram.org/*"
+      ],
+      "js": ["content_chat.js"],
+      "css": ["chat_copilot.css"],
+      "run_at": "document_idle"
+    }
+  ]
+}

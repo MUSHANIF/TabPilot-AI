@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <title>Personal AI Browser Toolkit</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --bg: #ffffff;
+      --surface: #f8fafc;
+      --border: #e2e8f0;
+      --text: #0f172a;
+      --muted: #64748b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 380px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .header {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .header h1 { font-size: 15px; font-weight: 700; color: #1e293b; }
+    .header p { font-size: 11px; color: var(--muted); }
+    .content { padding: 16px; display: flex; flex-direction: column; gap: 14px; }
+    .form-group { display: flex; flex-direction: column; gap: 5px; }
+    label { font-weight: 600; font-size: 12px; color: #334155; }
+    select, input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 12px;
+      background: #fff;
+      outline: none;
+      transition: border 0.15s;
+    }
+    select:focus, input:focus { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1); }
+    .info-card {
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 11.5px;
+      line-height: 1.5;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: #1e40af;
+    }
+    .info-card a { color: #1d4ed8; font-weight: 600; text-decoration: underline; }
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 10px;
+      background: var(--surface);
+      border-radius: 6px;
+      border: 1px solid var(--border);
+    }
+    .toggle-row span { font-weight: 500; font-size: 12px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 12px;
+      cursor: pointer;
+      border: none;
+      transition: background 0.15s;
+      gap: 6px;
+    }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: var(--primary-hover); }
+    .btn-outline { background: #fff; border: 1px solid var(--border); color: #334155; }
+    .btn-outline:hover { background: var(--surface); }
+    .status-box {
+      padding: 8px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      display: none;
+      word-break: break-all;
+    }
+    .status-success { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; display: block; }
+    .status-error { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; display: block; }
+    .footer {
+      padding: 10px 16px;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      text-align: center;
+      font-size: 11px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <img src="musolution_logo_icon.png" alt="musolutionlab Logo" width="30" height="30" style="border-radius: 6px;">
+    <div>
+      <h1>TabPilot AI</h1>
+      <p>by musolutionlab · Smart News & Chat Copilot</p>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="form-group">
+      <label for="provider">Mode AI (Pilih Metode Akses)</label>
+      <select id="provider">
+        <option value="claude-local" selected>✨ Claude Code (Akun Login Lokal - Tanpa API Key)</option>
+        <option value="gemini">🌐 Google AI Studio / Gemini (Gratis)</option>
+        <option value="claude-api">🔑 Claude API (Key Manual)</option>
+      </select>
+    </div>
+
+    <!-- Info Box saat Claude Local dipilih -->
+    <div id="infoClaudeLocal" class="info-card">
+      <strong>🎉 Tidak butuh API Key!</strong><br>
+      Menggunakan Claude Code yang sudah login di komputer Anda via <code>start-bridge.bat</code>.
+      <div style="margin-top: 6px; font-size: 11px; color: #1e3a8a;">
+        Status Bridge: <span id="bridgeStatus" style="font-weight: 700;">Memeriksa...</span>
+      </div>
+    </div>
+
+    <!-- Info Box saat Google Gemini dipilih -->
+    <div id="infoGemini" class="info-card" style="display: none; background: #f0fdf4; border-color: #bbf7d0; color: #166534;">
+      <strong>Google AI Studio (100% Gratis Tanpa Kartu Kredit):</strong><br>
+      Dengan akun Google Anda, Anda bisa mengambil API Key gratis langsung di <a href="https://aistudio.google.com/" target="_blank">aistudio.google.com</a> (klik "Get API key").
+    </div>
+
+    <div class="form-group" id="group-model" style="display: none;">
+      <label for="model">Model Gemini</label>
+      <select id="model">
+        <option value="gemini-2.5-flash">Gemini 2.5 Flash (Rekomendasi Cepat & Cerdas)</option>
+        <option value="gemini-1.5-flash">Gemini 1.5 Flash</option>
+        <option value="gemini-1.5-pro">Gemini 1.5 Pro</option>
+      </select>
+    </div>
+
+    <div class="form-group" id="group-key" style="display: none;">
+      <label for="apiKey" id="keyLabel">API Key</label>
+      <input type="password" id="apiKey" placeholder="Masukkan API Key">
+    </div>
+
+    <div style="border-top: 1px solid var(--border); margin: 4px 0;"></div>
+
+    <label>Fitur In-Browser Aktif</label>
+    <div class="toggle-row">
+      <span>📰 Pembersih Berita & Iklan</span>
+      <input type="checkbox" id="featureNewsClean" checked>
+    </div>
+    <div class="toggle-row">
+      <span>⚡ Rangkuman Berita AI</span>
+      <input type="checkbox" id="featureNewsSummary" checked>
+    </div>
+    <div class="toggle-row">
+      <span>💬 Copilot Chat (WhatsApp & Telegram)</span>
+      <input type="checkbox" id="featureChatCopilot" checked>
+    </div>
+
+    <div id="statusBox" class="status-box"></div>
+
+    <div style="display: flex; gap: 8px;">
+      <button type="button" id="btnTest" class="btn btn-outline" style="flex: 1;">🧪 Tes Koneksi AI</button>
+      <button type="button" id="btnSave" class="btn btn-primary" style="flex: 1;">💾 Simpan Pengaturan</button>
+    </div>
+  </div>
+
+  <div class="footer">
+    Dibuat dengan ❤️ oleh <strong>musolutionlab</strong> · Bekerja langsung di sisi klien.
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

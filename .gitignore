@@ -1,0 +1,21 @@
+# Dependencies & Environment
+node_modules/
+.env
+.env.local
+*.log
+.procoder/
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE & Editors
+.vscode/
+.idea/
+*.suo
+*.user
+
+# Temporary files
+*.tmp
+*.bak

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6" />
+      <stop offset="100%" stop-color="#1D4ED8" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-opacity="0.25" />
+    </filter>
+  </defs>
+
+  <!-- Rounded App Icon Background -->
+  <rect x="6" y="6" width="116" height="116" rx="26" fill="url(#bgGrad)" filter="url(#shadow)" />
+
+  <!-- 4-Point AI Sparkle Star -->
+  <path d="M64 26 C64 45, 45 64, 26 64 C45 64, 64 83, 64 102 C64 83, 83 64, 102 64 C83 64, 64 45, 64 26 Z" fill="#FFFFFF" />
+
+  <!-- Center Accent Glow -->
+  <circle cx="64" cy="64" r="5" fill="#93C5FD" />
+</svg>

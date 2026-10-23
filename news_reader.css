@@ -1,0 +1,323 @@
+/* Stylesheet for News Cleaner & AI Reader Mode */
+
+/* Floating Widget Pill */
+#personal-news-ai-widget {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 2147483647;
+  display: flex;
+  gap: 8px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: rgba(15, 23, 42, 0.9);
+  backdrop-filter: blur(8px);
+  padding: 6px 8px;
+  border-radius: 30px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+#personal-news-ai-widget:hover {
+  transform: translateY(-2px);
+}
+
+.p-news-btn {
+  background: transparent;
+  color: #f8fafc;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.15s, color 0.15s;
+}
+
+.p-news-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.p-news-btn-primary {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.p-news-btn-primary:hover {
+  background: #1d4ed8;
+}
+
+/* Modal Rangkuman AI */
+#personal-news-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 2147483647;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+#personal-news-modal-card {
+  background: #ffffff;
+  color: #0f172a;
+  width: 100%;
+  max-width: 600px;
+  max-height: 85vh;
+  border-radius: 14px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: pNewsFadeIn 0.2s ease-out;
+}
+
+@keyframes pNewsFadeIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.p-modal-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f8fafc;
+}
+
+.p-modal-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.p-modal-close {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  color: #64748b;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.p-modal-body {
+  padding: 20px;
+  overflow-y: auto;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.p-modal-body h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-top: 14px;
+  margin-bottom: 6px;
+}
+
+.p-modal-body p { margin-bottom: 10px; }
+.p-modal-body ul { padding-left: 20px; margin-bottom: 10px; }
+.p-modal-body li { margin-bottom: 6px; }
+
+/* Section Tanya Jawab Berita */
+.p-qa-section {
+  margin-top: 18px;
+  border-top: 1px dashed #cbd5e1;
+  padding-top: 16px;
+}
+
+.p-qa-section-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.p-chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.p-chip {
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 4px 10px;
+  font-size: 11.5px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.p-chip:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.p-qa-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 14px;
+  max-height: 220px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.p-qa-bubble {
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+.p-qa-bubble-user {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #1e40af;
+  align-self: flex-end;
+  max-width: 85%;
+}
+
+.p-qa-bubble-ai {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #1e293b;
+  align-self: flex-start;
+  max-width: 95%;
+}
+
+.p-qa-input-bar {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.p-qa-input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 12.5px;
+  outline: none;
+  background: #fff;
+  transition: border-color 0.15s;
+}
+
+.p-qa-input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+}
+
+.p-qa-send-btn {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+
+.p-qa-send-btn:hover {
+  background: #1d4ed8;
+}
+
+.p-qa-send-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.p-modal-footer {
+  padding: 14px 20px;
+  border-top: 1px solid #e2e8f0;
+  background: #f8fafc;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* Reader Mode Overlay (Distraction-Free) */
+body.p-reader-mode-active {
+  background: #fdfbf7 !important;
+  color: #2c2523 !important;
+}
+
+#personal-reader-container {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #fbfbf9;
+  z-index: 2147483640;
+  overflow-y: auto;
+  padding: 40px 20px 80px 20px;
+  font-family: Charter, Georgia, "Times New Roman", serif;
+}
+
+#personal-reader-container.active {
+  display: block;
+}
+
+.p-reader-content {
+  max-width: 680px;
+  margin: 0 auto;
+  font-size: 19px;
+  line-height: 1.8;
+  color: #242424;
+}
+
+.p-reader-content h1 {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1.25;
+  margin-bottom: 16px;
+  color: #111;
+}
+
+.p-reader-meta {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 30px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.p-reader-content p {
+  margin-bottom: 24px;
+}
+
+.p-reader-close-btn {
+  position: fixed;
+  top: 20px;
+  right: 24px;
+  background: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  z-index: 2147483645;
+}

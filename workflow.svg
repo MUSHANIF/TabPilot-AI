@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 900" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A" />
+      <stop offset="100%" stop-color="#1E293B" />
+    </linearGradient>
+    <linearGradient id="cardGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B" />
+      <stop offset="100%" stop-color="#0F172A" />
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="10" stdDeviation="15" flood-color="#000000" flood-opacity="0.35" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1400" height="900" fill="url(#bgGrad)" />
+
+  <!-- Title & Subtitle -->
+  <g transform="translate(70, 50)">
+    <text x="0" y="30" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="28" font-weight="800" fill="#FFFFFF" letter-spacing="0.5">
+      ALUR KERJA TABPILOT AI (WORKFLOW ARCHITECTURE)
+    </text>
+    <text x="0" y="60" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="400" fill="#94A3B8">
+      Mekanisme Ekstraksi In-Browser Client-Side, Local Claude Bridge (Tanpa API Key), dan Tindakan Interaktif
+    </text>
+    <line x1="0" y1="85" x2="1260" y2="85" stroke="#334155" stroke-width="2" />
+  </g>
+
+  <!-- COL 1: Web Klien -->
+  <g transform="translate(70, 165)">
+    <rect width="280" height="620" rx="16" fill="url(#cardGrad1)" stroke="#3B82F6" stroke-width="2" filter="url(#shadow)" />
+    <!-- Badge -->
+    <rect x="20" y="20" width="85" height="26" rx="13" fill="#2563EB" />
+    <text x="35" y="37" font-family="sans-serif" font-size="12" font-weight="700" fill="#FFFFFF">TAHAP 1</text>
+    <text x="20" y="78" font-family="sans-serif" font-size="19" font-weight="700" fill="#F8FAFC">1. Web Klien</text>
+    <text x="20" y="100" font-family="sans-serif" font-size="12" fill="#94A3B8">Lingkungan Asli Browser Anda</text>
+    <line x1="20" y1="120" x2="260" y2="120" stroke="#334155" stroke-width="1" />
+
+    <text x="20" y="150" font-family="sans-serif" font-size="14" font-weight="700" fill="#38BDF8">• Portal Berita</text>
+    <text x="32" y="172" font-family="sans-serif" font-size="13" fill="#CBD5E1">Detik, Kompas, CNN, Tempo, dll.</text>
+
+    <text x="20" y="220" font-family="sans-serif" font-size="14" font-weight="700" fill="#38BDF8">• Pembersihan Iklan</text>
+    <text x="32" y="242" font-family="sans-serif" font-size="13" fill="#CBD5E1">Auto Ad-Killer membasmi banner,</text>
+    <text x="32" y="262" font-family="sans-serif" font-size="13" fill="#CBD5E1">video melayang, dan pop-up.</text>
+
+    <text x="20" y="310" font-family="sans-serif" font-size="14" font-weight="700" fill="#38BDF8">• Chat Obrolan Web</text>
+    <text x="32" y="332" font-family="sans-serif" font-size="13" fill="#CBD5E1">WhatsApp Web &amp; Telegram Web.</text>
+
+    <text x="20" y="380" font-family="sans-serif" font-size="14" font-weight="700" fill="#38BDF8">• DOM Text Sniffer</text>
+    <text x="32" y="402" font-family="sans-serif" font-size="13" fill="#CBD5E1">Membaca konteks artikel &amp; 10-15</text>
+    <text x="32" y="422" font-family="sans-serif" font-size="13" fill="#CBD5E1">pesan terakhir secara lokal di RAM.</text>
+  </g>
+
+  <!-- ARROW 1 -> 2 -->
+  <path d="M 358 475 L 387 475" stroke="#38BDF8" stroke-width="3" />
+  <polygon points="387,469 397,475 387,481" fill="#38BDF8" />
+
+  <!-- COL 2: TabPilot AI Extension -->
+  <g transform="translate(395, 165)">
+    <rect width="280" height="620" rx="16" fill="url(#cardGrad1)" stroke="#6366F1" stroke-width="2" filter="url(#shadow)" />
+    <!-- Badge -->
+    <rect x="20" y="20" width="85" height="26" rx="13" fill="#4F46E5" />
+    <text x="35" y="37" font-family="sans-serif" font-size="12" font-weight="700" fill="#FFFFFF">TAHAP 2</text>
+    <text x="20" y="78" font-family="sans-serif" font-size="19" font-weight="700" fill="#F8FAFC">2. TabPilot AI</text>
+    <text x="20" y="100" font-family="sans-serif" font-size="12" fill="#94A3B8">Ekstensi Browser (Vanilla JS)</text>
+    <line x1="20" y1="120" x2="260" y2="120" stroke="#334155" stroke-width="1" />
+
+    <text x="20" y="150" font-family="sans-serif" font-size="14" font-weight="700" fill="#818CF8">• Content Scripts</text>
+    <text x="32" y="172" font-family="sans-serif" font-size="13" fill="#CBD5E1">content_news.js &amp; chat.js aktif.</text>
+
+    <text x="20" y="220" font-family="sans-serif" font-size="14" font-weight="700" fill="#818CF8">• Super Ringan (&lt;30 KB)</text>
+    <text x="32" y="242" font-family="sans-serif" font-size="13" fill="#CBD5E1">100% Native Vanilla JavaScript,</text>
+    <text x="32" y="262" font-family="sans-serif" font-size="13" fill="#CBD5E1">0% bikin lag atau boros RAM.</text>
+
+    <text x="20" y="310" font-family="sans-serif" font-size="14" font-weight="700" fill="#818CF8">• Background Worker</text>
+    <text x="32" y="332" font-family="sans-serif" font-size="13" fill="#CBD5E1">background.js mengemas prompt</text>
+    <text x="32" y="352" font-family="sans-serif" font-size="13" fill="#CBD5E1">dan konteks percakapan.</text>
+
+    <text x="20" y="400" font-family="sans-serif" font-size="14" font-weight="700" fill="#818CF8">• On-Demand Trigger</text>
+    <text x="32" y="422" font-family="sans-serif" font-size="13" fill="#CBD5E1">Hanya memproses saat tombol diklik,</text>
+    <text x="32" y="442" font-family="sans-serif" font-size="13" fill="#CBD5E1">CPU tetap dingin saat idle.</text>
+  </g>
+
+  <!-- ARROW 2 -> 3 -->
+  <path d="M 683 475 L 712 475" stroke="#818CF8" stroke-width="3" />
+  <polygon points="712,469 722,475 712,481" fill="#818CF8" />
+
+  <!-- COL 3: Local Bridge (Zero API Key) -->
+  <g transform="translate(720, 165)">
+    <rect width="280" height="620" rx="16" fill="url(#cardGrad1)" stroke="#A855F7" stroke-width="2" filter="url(#shadow)" />
+    <!-- Badge -->
+    <rect x="20" y="20" width="85" height="26" rx="13" fill="#9333EA" />
+    <text x="35" y="37" font-family="sans-serif" font-size="12" font-weight="700" fill="#FFFFFF">TAHAP 3</text>
+    <text x="20" y="78" font-family="sans-serif" font-size="19" font-weight="700" fill="#F8FAFC">3. Local Bridge</text>
+    <text x="20" y="100" font-family="sans-serif" font-size="12" fill="#94A3B8">start-bridge.bat (Port 3030)</text>
+    <line x1="20" y1="120" x2="260" y2="120" stroke="#334155" stroke-width="1" />
+
+    <text x="20" y="150" font-family="sans-serif" font-size="14" font-weight="700" fill="#C084FC">• Native Node.js Server</text>
+    <text x="32" y="172" font-family="sans-serif" font-size="13" fill="#CBD5E1">Berjalan di http://127.0.0.1:3030</text>
+    <text x="32" y="192" font-family="sans-serif" font-size="13" fill="#CBD5E1">tanpa perlu npm install tambahan.</text>
+
+    <text x="20" y="240" font-family="sans-serif" font-size="14" font-weight="700" fill="#C084FC">• Claude Code CLI</text>
+    <text x="32" y="262" font-family="sans-serif" font-size="13" fill="#CBD5E1">Menjalankan akun Claude yang sudah</text>
+    <text x="32" y="282" font-family="sans-serif" font-size="13" fill="#CBD5E1">login aktif di laptop Anda.</text>
+
+    <text x="20" y="330" font-family="sans-serif" font-size="14" font-weight="700" fill="#C084FC">• Zero API Key</text>
+    <text x="32" y="352" font-family="sans-serif" font-size="13" fill="#CBD5E1">Bebas biaya token / kartu kredit.</text>
+
+    <text x="20" y="400" font-family="sans-serif" font-size="14" font-weight="700" fill="#C084FC">• Opsi Cloud Gemini</text>
+    <text x="32" y="422" font-family="sans-serif" font-size="13" fill="#CBD5E1">Bisa dialihkan ke Google AI Studio</text>
+    <text x="32" y="442" font-family="sans-serif" font-size="13" fill="#CBD5E1">secara gratis kapan saja.</text>
+  </g>
+
+  <!-- ARROW 3 -> 4 -->
+  <path d="M 1008 475 L 1037 475" stroke="#C084FC" stroke-width="3" />
+  <polygon points="1037,469 1047,475 1037,481" fill="#C084FC" />
+
+  <!-- COL 4: Hasil Interaktif -->
+  <g transform="translate(1045, 165)">
+    <rect width="280" height="620" rx="16" fill="url(#cardGrad1)" stroke="#10B981" stroke-width="2" filter="url(#shadow)" />
+    <!-- Badge -->
+    <rect x="20" y="20" width="85" height="26" rx="13" fill="#059669" />
+    <text x="35" y="37" font-family="sans-serif" font-size="12" font-weight="700" fill="#FFFFFF">TAHAP 4</text>
+    <text x="20" y="78" font-family="sans-serif" font-size="19" font-weight="700" fill="#F8FAFC">4. Hasil Interaktif</text>
+    <text x="20" y="100" font-family="sans-serif" font-size="12" fill="#94A3B8">Respon Cerdas &amp; 1-Klik Aksi</text>
+    <line x1="20" y1="120" x2="260" y2="120" stroke="#334155" stroke-width="1" />
+
+    <text x="20" y="150" font-family="sans-serif" font-size="14" font-weight="700" fill="#34D399">• Rangkuman Berita</text>
+    <text x="32" y="172" font-family="sans-serif" font-size="13" fill="#CBD5E1">TL;DR 1 kalimat + 3-5 poin fakta.</text>
+
+    <text x="20" y="220" font-family="sans-serif" font-size="14" font-weight="700" fill="#34D399">• Tanya Jawab (Q&amp;A)</text>
+    <text x="32" y="242" font-family="sans-serif" font-size="13" fill="#CBD5E1">Ketik pertanyaan bebas seputar artikel</text>
+    <text x="32" y="262" font-family="sans-serif" font-size="13" fill="#CBD5E1">dan dapatkan jawaban instan.</text>
+
+    <text x="20" y="310" font-family="sans-serif" font-size="14" font-weight="700" fill="#34D399">• 3 Rekomendasi Balasan</text>
+    <text x="32" y="332" font-family="sans-serif" font-size="13" fill="#CBD5E1">Pilihan Formal, Santai, dan Singkat.</text>
+
+    <text x="20" y="380" font-family="sans-serif" font-size="14" font-weight="700" fill="#34D399">• 1-Klik Masukkan Chat</text>
+    <text x="32" y="402" font-family="sans-serif" font-size="13" fill="#CBD5E1">Tombol instan menempelkan teks</text>
+    <text x="32" y="422" font-family="sans-serif" font-size="13" fill="#CBD5E1">ke kolom pesan WhatsApp/Telegram!</text>
+  </g>
+
+  <!-- Footer Banner -->
+  <g transform="translate(70, 815)">
+    <rect width="1260" height="50" rx="10" fill="#1E293B" stroke="#334155" stroke-width="1" />
+    <text x="25" y="31" font-family="sans-serif" font-size="13" font-weight="700" fill="#34D399">
+      🛡️ PRIVASI 100% TERJAMIN: Seluruh proses ekstraksi berjalan di sisi klien (In-Browser). Data Anda tidak mampir ke server perantara pihak ketiga.
+    </text>
+  </g>
+</svg>
