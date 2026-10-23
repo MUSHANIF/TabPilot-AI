@@ -143,6 +143,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   function showStatus(msg, isSuccess) {
     statusBox.textContent = msg;
+    statusBox.style.display = '';
     statusBox.className = 'status-box ' + (isSuccess ? 'status-success' : 'status-error');
   }
 

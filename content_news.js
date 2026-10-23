@@ -4,6 +4,19 @@
   // Hanya aktifkan jika berada di dokumen HTML biasa
   if (!document.body || document.contentType !== 'text/html') return;
 
+  const host = window.location.hostname.toLowerCase();
+
+  // DAFTAR HOST NON-BERITA: Jangan pernah aktif di aplikasi chat, sosmed, email, atau tools kerja
+  const nonNewsHosts = [
+    'whatsapp.com', 'telegram.org', 'slack.com', 'discord.com',
+    'messenger.com', 'instagram.com', 'facebook.com', 'mail.google.com',
+    'gmail.com', 'twitter.com', 'x.com', 'github.com', 'youtube.com',
+    'linkedin.com', 'notion.so', 'figma.com', 'trello.com', 'drive.google.com'
+  ];
+  if (nonNewsHosts.some(h => host.includes(h))) {
+    return; // Berhenti total
+  }
+
   // Baca pengaturan pengguna
   const settings = await chrome.storage.local.get([
     'provider', 'geminiKey', 'claudeKey', 'customKey',
@@ -98,6 +111,19 @@
   function initNewsWidget() {
     if (document.getElementById('personal-news-ai-widget')) return;
 
+    // Pastikan halaman ini memang artikel berita/tulisan panjang sebelum memunculkan widget
+    const isNewsSite = [
+      'detik.com', 'kompas.com', 'kumparan.com', 'cnnindonesia.com',
+      'tempo.co', 'tribunnews.com', 'liputan6.com', 'suara.com',
+      'merdeka.com', 'idntimes.com', 'cnbcindonesia.com', 'medium.com'
+    ].some(d => host.includes(d));
+
+    const article = getArticleData();
+    // Jika bukan portal berita dan tidak ada konten artikel yang layak (> 350 karakter), jangan tampilkan widget
+    if (!isNewsSite && (!article.bodyText || article.bodyText.length < 350)) {
+      return;
+    }
+
     const widget = document.createElement('div');
     widget.id = 'personal-news-ai-widget';
     widget.innerHTML = `
@@ -107,6 +133,7 @@
       <button class="p-news-btn p-news-btn-primary" id="btnSummarizeNews" title="Rangkum artikel dengan AI">
         <span>⚡</span> Rangkum AI
       </button>
+      <button class="p-news-btn-close" id="btnDismissNewsWidget" title="Sembunyikan widget">&times;</button>
     `;
 
     document.body.appendChild(widget);
@@ -116,6 +143,11 @@
 
     // Event Rangkum Berita
     document.getElementById('btnSummarizeNews').addEventListener('click', triggerSummarize);
+
+    // Event Tutup/Dismiss Widget
+    document.getElementById('btnDismissNewsWidget').addEventListener('click', () => {
+      widget.remove();
+    });
   }
 
   function toggleReaderMode() {

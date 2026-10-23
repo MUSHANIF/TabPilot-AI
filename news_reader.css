@@ -50,6 +50,26 @@
   background: #1d4ed8;
 }
 
+.p-news-btn-close {
+  background: transparent;
+  color: #94a3b8;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 50%;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  transition: color 0.15s, background 0.15s;
+}
+
+.p-news-btn-close:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.2);
+}
+
 /* Modal Rangkuman AI */
 #personal-news-modal-overlay {
   position: fixed;

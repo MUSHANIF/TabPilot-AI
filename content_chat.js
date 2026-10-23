@@ -14,16 +14,146 @@
   function initChatCopilotTrigger() {
     if (document.getElementById('personal-chat-copilot-trigger')) return;
 
-    const btn = document.createElement('button');
-    btn.id = 'personal-chat-copilot-trigger';
-    btn.innerHTML = `<span>🤖</span> Copilot AI`;
-    btn.title = 'Buka Asisten Chat AI untuk rangkum & rekomendasikan 3 balasan';
+    const trigger = document.createElement('div');
+    trigger.id = 'personal-chat-copilot-trigger';
 
-    btn.addEventListener('click', () => {
-      toggleCopilotPanel();
+    const isMini = localStorage.getItem('tabpilot_copilot_mini') === 'true';
+    if (isMini) {
+      trigger.classList.add('is-mini');
+    }
+
+    trigger.innerHTML = `
+      <div class="p-copilot-drag-handle" title="Tahan dan geser untuk memindahkan posisi">⋮⋮</div>
+      <div class="p-copilot-main-btn" id="pBtnOpenPanel" title="Buka Asisten Chat AI">
+        <span class="p-copilot-icon">🤖</span>
+        <span class="p-copilot-label">Copilot AI</span>
+      </div>
+      <button type="button" class="p-copilot-mini-toggle" id="pBtnToggleMini" title="Perkecil ke ikon / sembunyikan label">&ndash;</button>
+    `;
+
+    document.body.appendChild(trigger);
+
+    // Aktifkan draggable
+    const didDrag = makeDraggable(trigger, 'tabpilot_chat_pos');
+
+    // Click handler
+    trigger.addEventListener('click', (e) => {
+      if (didDrag()) return; // Jika baru saja digeser/drag, jangan toggle
+
+      // Jika klik tombol minimize/expand
+      if (e.target.closest('#pBtnToggleMini')) {
+        e.stopPropagation();
+        trigger.classList.add('is-mini');
+        localStorage.setItem('tabpilot_copilot_mini', 'true');
+        return;
+      }
+
+      // Jika sedang mini, klik di mana saja pada badge akan membuka panel
+      if (trigger.classList.contains('is-mini')) {
+        toggleCopilotPanel();
+        return;
+      }
+
+      // Mode normal: buka/tutup panel
+      if (e.target.closest('#pBtnOpenPanel') || e.target === trigger) {
+        toggleCopilotPanel();
+      }
     });
 
-    document.body.appendChild(btn);
+    // Double-click pada ikon mini mengembalikannya ke tampilan penuh
+    trigger.addEventListener('dblclick', () => {
+      if (trigger.classList.contains('is-mini')) {
+        trigger.classList.remove('is-mini');
+        localStorage.setItem('tabpilot_copilot_mini', 'false');
+      }
+    });
+  }
+
+  // Fungsi helper membuat elemen bisa digeser (draggable) & mengingat posisi
+  function makeDraggable(element, storageKey) {
+    let isDragging = false;
+    let startX = 0, startY = 0;
+    let startLeft = 0, startTop = 0;
+    let moved = false;
+
+    // Pulihkan posisi tersimpan jika ada
+    try {
+      const saved = localStorage.getItem(storageKey);
+      if (saved) {
+        const pos = JSON.parse(saved);
+        const maxLeft = Math.max(10, window.innerWidth - 60);
+        const maxTop = Math.max(10, window.innerHeight - 60);
+        const left = Math.min(Math.max(10, pos.left), maxLeft);
+        const top = Math.min(Math.max(10, pos.top), maxTop);
+        element.style.left = `${left}px`;
+        element.style.top = `${top}px`;
+        element.style.right = 'auto';
+        element.style.bottom = 'auto';
+      }
+    } catch (_) {}
+
+    element.addEventListener('mousedown', (e) => {
+      if (e.button !== 0) return; // Hanya klik kiri
+      if (e.target.closest('#pBtnToggleMini')) return;
+
+      isDragging = true;
+      moved = false;
+      startX = e.clientX;
+      startY = e.clientY;
+
+      const rect = element.getBoundingClientRect();
+      startLeft = rect.left;
+      startTop = rect.top;
+
+      const onMouseMove = (ev) => {
+        if (!isDragging) return;
+        const dx = ev.clientX - startX;
+        const dy = ev.clientY - startY;
+
+        if (Math.abs(dx) > 4 || Math.abs(dy) > 4) {
+          moved = true;
+          element.classList.add('is-dragging');
+        }
+
+        if (moved) {
+          let newLeft = startLeft + dx;
+          let newTop = startTop + dy;
+
+          const maxLeft = window.innerWidth - element.offsetWidth - 10;
+          const maxTop = window.innerHeight - element.offsetHeight - 10;
+          newLeft = Math.max(10, Math.min(newLeft, maxLeft));
+          newTop = Math.max(10, Math.min(newTop, maxTop));
+
+          element.style.left = `${newLeft}px`;
+          element.style.top = `${newTop}px`;
+          element.style.right = 'auto';
+          element.style.bottom = 'auto';
+        }
+      };
+
+      const onMouseUp = () => {
+        if (!isDragging) return;
+        isDragging = false;
+        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('mouseup', onMouseUp);
+
+        setTimeout(() => {
+          element.classList.remove('is-dragging');
+        }, 50);
+
+        if (moved) {
+          const rect = element.getBoundingClientRect();
+          try {
+            localStorage.setItem(storageKey, JSON.stringify({ left: rect.left, top: rect.top }));
+          } catch (_) {}
+        }
+      };
+
+      document.addEventListener('mousemove', onMouseMove);
+      document.addEventListener('mouseup', onMouseUp);
+    });
+
+    return () => moved;
   }
 
   function toggleCopilotPanel() {
@@ -34,7 +164,7 @@
       panel.innerHTML = `
         <div class="p-copilot-header">
           <h3><span>💬</span> Asisten Chat AI</h3>
-          <button class="p-copilot-close" id="pBtnCloseCopilot">&times;</button>
+          <button class="p-copilot-close" id="pBtnCloseCopilot" title="Tutup (Esc)">&times;</button>
         </div>
         <div class="p-copilot-body">
           <div class="p-copilot-actions">
@@ -76,6 +206,14 @@
         panel.style.display = 'none';
         isPanelOpen = false;
       };
+
+      // Keyboard Esc untuk menutup panel
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && isPanelOpen) {
+          panel.style.display = 'none';
+          isPanelOpen = false;
+        }
+      });
 
       document.getElementById('pBtnSummarizeChat').onclick = handleSummarizeChat;
       document.getElementById('pBtnGenerateReplies').onclick = handleGenerateReplies;
